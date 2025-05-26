@@ -14,7 +14,7 @@ export default {
       ros: null,
       listener: null,
 
-      //data yang di publish
+      //data yang di publish ke PC robot
       toPC: null,
     };
   },
@@ -31,20 +31,22 @@ export default {
         url: "ws://localhost:9090", // Sesuaikan URL dengan alamat ROS Bridge Anda
       });
 
+      //subsribe from pc robot to base station
       this.listener = new ROSLIB.Topic({
         ros: this.ros,
         name: "/pc2bs",
-        messageType: "IRIS24/PC2BS",
+        messageType: "XXX",
       });
     },
     subscribe() {
       let that = this;
       that.listener.subscribe(function (message) {
         that.ROBOT_STATE.dataRobot = message;
+
+        //example
+        //ngikutin custom msg robot
         that.ROBOT_STATE.dataRobot.pos_x += 58;
         that.ROBOT_STATE.dataRobot.pos_y += 58;
-        that.ROBOT_STATE.dataRobot.bola_x += 58;
-        that.ROBOT_STATE.dataRobot.bola_y += 58;
         that.ROBOT_STATE.dataRobot.pos_theta *= -1;
         console.log(that.ROBOT_STATE.dataRobot);
       });

@@ -6,39 +6,31 @@ export const useRobotStore = defineStore("alerts", {
     return {
       // all these properties will have their type inferred automatically
       dataRobot: {
-        pos_x: 0,
+        pos_x: 58,
         pos_y: 0,
         pos_theta: 0,
-        v_x: 0,
-        v_y: 0,
-        v_theta: 0,
-        bola_x: 0,
-        bola_y: 0,
       },
+      //base station to PC robot
       bs2pc: {
         status: 0,
-        tujuan_x: 0,
-        tujuan_y: 0,
+        mapStatus: "",
       },
+      //others
       utils: {
-        publish_switch: false,
-        visibility_blueball: false,
-        visibility_target: false,
-        tempStatus: 0,
+        // status button
+        tempStatus: "",
+        tempMapStatus: "",
       },
     };
   },
   actions: {
     // since we rely on `this`, we cannot use an arrow function
     resetDataRobot() {
-      this.dataRobot.pos_x = 58;
-      this.dataRobot.pos_y = 58;
+      //default values
+      this.dataRobot.pos_x = 69;
+      this.dataRobot.pos_y = 0;
       this.dataRobot.pos_theta = 0;
-      this.dataRobot.v_x = 0;
-      this.dataRobot.v_y = 0;
-      this.dataRobot.v_theta = 0;
-      this.dataRobot.bola_x = 58;
-      this.dataRobot.bola_y = 58;
+      this.utils.tempMapStatus = 'RED';
     },
     // randomizeCounter() {
     //   this.count = Math.round(100 * Math.random());
