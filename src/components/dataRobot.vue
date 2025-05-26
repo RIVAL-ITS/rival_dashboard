@@ -24,7 +24,7 @@
       <!-- Right Panel -->
       <div class="right-panel w-[320px] flex flex-col gap-2 bg-white p-2.5 border border-gray-300 shadow-sm">
         <div class="info-block-right text-xs leading-normal border border-gray-200 p-2 bg-gray-50">
-          <p class="my-[3px] break-words"><strong class="font-bold">Backend :</strong> {{ backendInfo.status }}</p>
+          <p class="my-[3px] break-words"><strong class="font-bold">Backend :</strong> {{ backendInfo }}</p>
           <p class="my-[3px] break-words"><strong class="font-bold">Current Map :</strong> {{ this.tempMapStatus }}</p>
           <p class="my-[3px] break-words"><strong class="font-bold">Button Clicked : </strong> {{ this.tempStatus}}</p>
         </div>
@@ -94,12 +94,8 @@ export default {
       toPC: {},
 
       tempStatus: "",
-      tempMapStatus: "",
-      backendInfo: {
-        status: "DISCONNECT",
-        currentField: "RED",
-        styleInfo: "",
-      },
+      tempMapStatus: "RED",
+      backendInfo: "Disconnected",
     };
   },
   computed: {
@@ -130,6 +126,17 @@ export default {
     async init() {
       this.ros = new ROSLIB.Ros({
         url: "ws://localhost:9090",
+      });
+
+      // check backend status
+      this.ros.on('connection', () => {
+        this.backendInfo = "Connected";
+      });
+      this.ros.on('close', () => {
+        this.backendInfo = "Disconnected";
+      });
+      this.ros.on('error', () => {
+        this.backendInfo = "ERROR";
       });
 
       //publisher BS to PC Robot
@@ -171,12 +178,9 @@ export default {
     statusClick(data) {
       const strNumber = String(data);
 
-      // if (strNumber === "red" || strNumber === "blue") {
-      //   this.tempMapStatus = strNumber;
-      // } else {
         this.tempStatus = strNumber;
         this.ROBOT_STATE.utils.tempStatus = strNumber; 
-      // }
+
       switch(this.tempStatus) {
         //case undian
         case "undian1":
