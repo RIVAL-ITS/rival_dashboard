@@ -14,6 +14,7 @@
         class="camera-grid grid grid-cols-2 grid-rows-2 gap-2"
         style="width: 1300px; height: 920px;"
       >
+        <!-- you should config this alone, decode the rgb data from ROS -->
         <div class="camera-feed bg-gray-200 flex items-center justify-center rounded shadow w-full h-full">MAIN CAMERA 1</div>
         <div class="camera-feed bg-gray-200 flex items-center justify-center rounded shadow w-full h-full">MAIN CAMERA 2</div>
         <div class="camera-feed bg-gray-200 flex items-center justify-center rounded shadow w-full h-full">MAIN CAMERA 3</div>
