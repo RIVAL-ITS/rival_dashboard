@@ -40,6 +40,8 @@ export default {
     },
     subscribe() {
       let that = this;
+
+      //put all listener in here, from ROBOT to Ground Station PC Data
       that.listener.subscribe(function (message) {
         that.ROBOT_STATE.dataRobot = message;
 
